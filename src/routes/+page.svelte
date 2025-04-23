@@ -10,10 +10,13 @@
     
     <div class="flex justify-center">
         <button
-            class="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white font-semibold px-6 py-3 rounded-xl transition"
-            on:click={() => goto('/generate')}
-        >
-            Get Started
-        </button>
+	class="bg-gradient-to-r from-blue-500 via-purple-600 to-indigo-600 hover:from-blue-600 hover:to-purple-700 
+	text-white font-bold px-8 py-3 rounded-full shadow-lg transform transition-all duration-300 
+	hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-purple-300 cursor-pointer"
+	on:click={() => goto('/generate')}
+>
+	 Let&apos;s Go!
+</button>
+
     </div>
 </div>
