@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import '../app.css';
 </script>
 
@@ -26,9 +27,10 @@
 		</svg>
 	</a>
 
-	<header class="bg-gray-800 text-white p-4 text-center text-xl font-bold shadow-md">
+	<button class="bg-gray-800 cursor-pointer text-white p-4 text-center text-xl font-bold shadow-md"
+	on:click={() => goto('/')}>
 		Trick Me
-	</header>
+	</button>
 
 	<main class="flex-grow flex items-center justify-center p-4">
 		<slot />
