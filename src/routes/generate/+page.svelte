@@ -2,20 +2,12 @@
 	let numQuestions = 5;
 	let difficulty = 'medium';
 	let file: File | null = null;
+	let questions: string[] = [];
 
 	const difficultyLevels = [
-		{
-			value: 'easy',
-			label: 'Easy'
-		},
-		{
-			value: 'medium',
-			label: 'Medium'
-		},
-		{
-			value: 'hard',
-			label: 'Tricky'
-		}
+		{ value: 'easy', label: 'Easy' },
+		{ value: 'medium', label: 'Medium' },
+		{ value: 'hard', label: 'Tricky' }
 	];
 
 	function handleFileChange(event: Event) {
@@ -23,8 +15,14 @@
 		file = target.files?.[0] ?? null;
 	}
 
-	function handleSubmit() {
+	async function handleSubmit() {
 		alert(`Generating ${numQuestions} ${difficulty} questions from PDF: ${file?.name}`);
+
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		questions = Array.from({ length: numQuestions }, (_, i) => {
+			return `(${difficulty.toUpperCase()}) Question ${i + 1}: What is the answer to question ${i + 1}?`;
+		});
 	}
 </script>
 
@@ -34,7 +32,7 @@
 
 		<form on:submit|preventDefault={handleSubmit} class="space-y-6">
 			<div>
-				<p class="mb-1 block text-sm font-semibold text-gray-700">Upload PDF</p>
+				<p class="mb-1 block text-sm font-semibold text-gray-700">Upload PDF (Upto 1MB)</p>
 				<input
 					type="file"
 					accept=".pdf"
@@ -78,5 +76,16 @@
 				Trick Me!
 			</button>
 		</form>
+
+		{#if questions.length}
+			<div class="mt-8 space-y-4">
+				<h3 class="text-xl font-semibold text-gray-700">Mocked Questions:</h3>
+				<ul class="list-inside list-disc text-gray-600">
+					{#each questions as question}
+						<li>{question}</li>
+					{/each}
+				</ul>
+			</div>
+		{/if}
 	</div>
 </section>
