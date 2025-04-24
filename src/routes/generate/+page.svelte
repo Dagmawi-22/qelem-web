@@ -1,4 +1,9 @@
+
+
 <script lang="ts">
+    import { questionStore } from '../../stores/questions';
+    import { goto } from '$app/navigation'; 
+
 	let numQuestions = 5;
 	let difficulty = 'medium';
 	let file: File | null = null;
@@ -15,15 +20,29 @@
 		file = target.files?.[0] ?? null;
 	}
 
-	async function handleSubmit() {
-		alert(`Generating ${numQuestions} ${difficulty} questions from PDF: ${file?.name}`);
-
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-
-		questions = Array.from({ length: numQuestions }, (_, i) => {
-			return `(${difficulty.toUpperCase()}) Question ${i + 1}: What is the answer to question ${i + 1}?`;
-		});
+    async function handleSubmit() {
+	if (!file) {
+		alert('Please upload a PDF file.');
+		return;
 	}
+
+	// Fake generation delay
+	await new Promise((resolve) => setTimeout(resolve, 1000));
+
+	const generated = Array.from({ length: numQuestions }, (_, i) => ({
+		question: `(${difficulty.toUpperCase()}) Question ${i + 1}: What is the answer to question ${i + 1}?`,
+		options: [
+			{ value: 'A', isCorrect: i % 4 === 0, description: 'Option A explanation' },
+			{ value: 'B', isCorrect: i % 4 === 1, description: 'Option B explanation' },
+			{ value: 'C', isCorrect: i % 4 === 2, description: 'Option C explanation' },
+			{ value: 'D', isCorrect: i % 4 === 3, description: 'Option D explanation' }
+		]
+	}));
+
+	questionStore.set(generated);
+	await goto('/exam');
+}
+
 </script>
 
 <section class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12">
