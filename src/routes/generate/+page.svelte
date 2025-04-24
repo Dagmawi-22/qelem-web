@@ -13,51 +13,52 @@
 	}
 </script>
 
-<section class="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
-	<div class="w-full max-w-lg bg-white shadow-xl rounded-2xl p-8">
-		<h2 class="text-3xl font-bold text-center text-gray-800 mb-6">📄 Generate Questions</h2>
+<section class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12">
+	<div class="w-full max-w-lg rounded-2xl bg-white p-8 shadow-xl">
+		<h2 class="mb-6 text-center text-3xl font-bold text-gray-800">📄 Generate Questions</h2>
 
 		<form on:submit|preventDefault={handleSubmit} class="space-y-6">
 			<div>
-				<p class="block text-sm font-semibold text-gray-700 mb-1">Upload PDF</p>
+				<p class="mb-1 block text-sm font-semibold text-gray-700">Upload PDF</p>
 				<input
 					type="file"
 					accept=".pdf"
 					on:change={handleFileChange}
-					class="w-full file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold 
-						file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border rounded-lg p-2 text-gray-600"
+					class="w-full rounded-lg border p-2 text-gray-600 file:mr-4 file:rounded-lg file:border-0
+						file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
 				/>
 			</div>
 
 			<div>
-				<p class="block text-sm font-semibold text-gray-700 mb-1">Number of Questions</p>
+				<p class="mb-1 block text-sm font-semibold text-gray-700">Number of Questions (Between 5 & 20)</p>
 				<input
 					type="number"
-					min="1"
+					min="5"
+					max="20"
 					bind:value={numQuestions}
-					class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					class="w-full rounded-lg border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 				/>
 			</div>
 
 			<div>
-				<p class="block text-sm font-semibold text-gray-700 mb-1">Difficulty</p>
+				<p class="mb-1 block text-sm font-semibold text-gray-700">Difficulty</p>
 				<select
 					bind:value={difficulty}
-					class="w-full border border-gray-300 rounded-lg p-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+					class="w-full rounded-lg border border-gray-300 bg-white p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 				>
 					<option value="easy">Easy</option>
 					<option value="medium">Medium</option>
-					<option value="hard">Hard</option>
+					<option value="hard">Tricky</option>
 				</select>
 			</div>
 
 			<button
 				type="submit"
-				class="w-full cursor-pointer bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 
-					text-white font-bold py-3 rounded-full shadow-md transform transition-all duration-300 
-					hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300"
+				class="w-full transform cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-600
+					py-3 font-bold text-white shadow-md transition-all duration-300 hover:scale-105 hover:from-blue-600
+					hover:to-purple-700 hover:shadow-lg focus:ring-4 focus:ring-purple-300 focus:outline-none"
 			>
-				 Trick Me!
+				Trick Me!
 			</button>
 		</form>
 	</div>
