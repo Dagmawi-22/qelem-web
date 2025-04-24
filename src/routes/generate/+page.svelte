@@ -3,6 +3,21 @@
 	let difficulty = 'medium';
 	let file: File | null = null;
 
+	const difficultyLevels = [
+		{
+			value: 'easy',
+			label: 'Easy'
+		},
+		{
+			value: 'medium',
+			label: 'Medium'
+		},
+		{
+			value: 'hard',
+			label: 'Tricky'
+		}
+	];
+
 	function handleFileChange(event: Event) {
 		const target = event.target as HTMLInputElement;
 		file = target.files?.[0] ?? null;
@@ -30,7 +45,9 @@
 			</div>
 
 			<div>
-				<p class="mb-1 block text-sm font-semibold text-gray-700">Number of Questions (Between 5 & 20)</p>
+				<p class="mb-1 block text-sm font-semibold text-gray-700">
+					Number of Questions (Between 5 & 20)
+				</p>
 				<input
 					type="number"
 					min="5"
@@ -46,9 +63,9 @@
 					bind:value={difficulty}
 					class="w-full rounded-lg border border-gray-300 bg-white p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 				>
-					<option value="easy">Easy</option>
-					<option value="medium">Medium</option>
-					<option value="hard">Tricky</option>
+					{#each difficultyLevels as level}
+						<option value={level.value}>{level.label}</option>
+					{/each}
 				</select>
 			</div>
 
