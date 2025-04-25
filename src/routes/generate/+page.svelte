@@ -1,8 +1,6 @@
-
-
 <script lang="ts">
-    import { questionStore } from '../../stores/questions';
-    import { goto } from '$app/navigation'; 
+	import { questionStore } from '../../stores/questions';
+	import { goto } from '$app/navigation';
 
 	let numQuestions = 5;
 	let difficulty = 'medium';
@@ -20,29 +18,28 @@
 		file = target.files?.[0] ?? null;
 	}
 
-    async function handleSubmit() {
-	if (!file) {
-		alert('Please upload a PDF file.');
-		return;
+	async function handleSubmit() {
+		if (!file) {
+			alert('Please upload a PDF file.');
+			return;
+		}
+
+		// Fake generation delay
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		const generated = Array.from({ length: numQuestions }, (_, i) => ({
+			question: `(${difficulty.toUpperCase()}) Question ${i + 1}: What is the answer to question ${i + 1}?`,
+			options: [
+				{ value: 'A', isCorrect: i % 4 === 0, description: 'Option A explanation' },
+				{ value: 'B', isCorrect: i % 4 === 1, description: 'Option B explanation' },
+				{ value: 'C', isCorrect: i % 4 === 2, description: 'Option C explanation' },
+				{ value: 'D', isCorrect: i % 4 === 3, description: 'Option D explanation' }
+			]
+		}));
+
+		questionStore.set(generated);
+		await goto('/exam');
 	}
-
-	// Fake generation delay
-	await new Promise((resolve) => setTimeout(resolve, 1000));
-
-	const generated = Array.from({ length: numQuestions }, (_, i) => ({
-		question: `(${difficulty.toUpperCase()}) Question ${i + 1}: What is the answer to question ${i + 1}?`,
-		options: [
-			{ value: 'A', isCorrect: i % 4 === 0, description: 'Option A explanation' },
-			{ value: 'B', isCorrect: i % 4 === 1, description: 'Option B explanation' },
-			{ value: 'C', isCorrect: i % 4 === 2, description: 'Option C explanation' },
-			{ value: 'D', isCorrect: i % 4 === 3, description: 'Option D explanation' }
-		]
-	}));
-
-	questionStore.set(generated);
-	await goto('/exam');
-}
-
 </script>
 
 <section class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12">
@@ -92,7 +89,7 @@
 					py-3 font-bold text-white shadow-md transition-all duration-300 hover:scale-105 hover:from-blue-600
 					hover:to-purple-700 hover:shadow-lg focus:ring-4 focus:ring-purple-300 focus:outline-none"
 			>
-				Trick Me!
+				QELEM!
 			</button>
 		</form>
 
