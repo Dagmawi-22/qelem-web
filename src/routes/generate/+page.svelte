@@ -12,7 +12,7 @@
 	const difficultyLevels = [
 		{ value: 'easy', label: 'Easy' },
 		{ value: 'medium', label: 'Medium' },
-		{ value: 'hard', label: 'Tricky' }
+		{ value: 'hard', label: 'Hard' }
 	];
 
 	function handleFileChange(event: Event) {
@@ -29,20 +29,10 @@
 	// Fake generation delay
 	await new Promise((resolve) => setTimeout(resolve, 1000));
 
-	const generated = Array.from({ length: numQuestions }, (_, i) => ({
-		question: `(${difficulty.toUpperCase()}) Question ${i + 1}: What is the answer to question ${i + 1}?`,
-		options: [
-			{ value: 'A', isCorrect: i % 4 === 0, description: 'Option A explanation' },
-			{ value: 'B', isCorrect: i % 4 === 1, description: 'Option B explanation' },
-			{ value: 'C', isCorrect: i % 4 === 2, description: 'Option C explanation' },
-			{ value: 'D', isCorrect: i % 4 === 3, description: 'Option D explanation' }
-		]
-	}));
-
-	questionStore.set(generated);
-	await goto('/exam');
-}
-
+		questions = Array.from({ length: numQuestions }, (_, i) => {
+			return `(${difficulty.toUpperCase()}) Question ${i + 1}: What is the answer to question ${i + 1}?`;
+		});
+	}
 </script>
 
 <section class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12">

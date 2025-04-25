@@ -3,15 +3,15 @@
 	import '../app.css';
 </script>
 
-<div class="min-h-screen flex flex-col relative">
+<div class="relative flex min-h-screen flex-col">
 	<a
 		href="https://github.com/Dagmawi-22"
 		target="_blank"
 		rel="noopener noreferrer"
-		class="absolute top-4 right-4 text-gray-400 hover:text-black transition"
+		class="absolute top-4 right-4 text-gray-400 transition hover:text-black"
 		aria-label="GitHub"
 	>
-		<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+		<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 			<path
 				fill-rule="evenodd"
 				d="M12 0C5.37 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.793-.26.793-.577 
@@ -27,16 +27,18 @@
 		</svg>
 	</a>
 
-	<button class="bg-gray-800 cursor-pointer text-white p-4 text-center text-xl font-bold shadow-md"
-	on:click={() => goto('/')}>
-		Trick Me
+	<button
+		class="cursor-pointer bg-gray-800 p-4 text-center text-xl font-bold text-white shadow-md"
+		on:click={() => goto('/')}
+	>
+		Qelem
 	</button>
 
-	<main class="flex-grow flex items-center justify-center p-4">
+	<main class="flex flex-grow items-center justify-center p-4">
 		<slot />
 	</main>
 
-	<footer class="bg-gray-100 text-center text-sm text-gray-600 p-4 shadow-inner">
-		© {new Date().getFullYear()} Trick Me. All rights reserved.
+	<footer class="bg-gray-100 p-4 text-center text-sm text-gray-600 shadow-inner">
+		© {new Date().getFullYear()} Qelem. All rights reserved.
 	</footer>
 </div>
