@@ -7,7 +7,7 @@
 	const difficultyLevels = [
 		{ value: 'easy', label: 'Easy' },
 		{ value: 'medium', label: 'Medium' },
-		{ value: 'hard', label: 'Tricky' }
+		{ value: 'hard', label: 'Hard' }
 	];
 
 	function handleFileChange(event: Event) {
@@ -16,13 +16,23 @@
 	}
 
 	async function handleSubmit() {
-		alert(`Generating ${numQuestions} ${difficulty} questions from PDF: ${file?.name}`);
+		if (!file) {
+			alert('Please upload a PDF file first.');
+			return;
+		}
+
+		const formData = new FormData();
+		formData.append('file', file);
+		formData.append('numQuestions', numQuestions.toString());
+		formData.append('difficulty', difficulty);
 
 		await new Promise((resolve) => setTimeout(resolve, 1000));
 
-		questions = Array.from({ length: numQuestions }, (_, i) => {
-			return `(${difficulty.toUpperCase()}) Question ${i + 1}: What is the answer to question ${i + 1}?`;
+		const mockQuestions = Array.from({ length: numQuestions }, (_, i) => {
+			return `(${difficulty.toUpperCase()}) Question ${i + 1}: Sample generated question from ${file.name}`;
 		});
+
+		questions = mockQuestions;
 	}
 </script>
 
