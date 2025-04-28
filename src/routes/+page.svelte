@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { appModeStore } from '../stores/activemode';
 </script>
 
 <div
@@ -232,7 +233,10 @@
 					></span>
 				</button>
 				<button
-					on:click={() => goto('/flashcards')}
+					on:click={() => {
+						appModeStore.set('flash-card');
+						goto('/generate');
+					}}
 					class="group relative transform overflow-hidden rounded-full border border-indigo-500 bg-white px-8 py-3 font-bold text-indigo-600 shadow-md transition-all duration-300 hover:scale-105 hover:bg-indigo-50 hover:shadow-lg"
 				>
 					<span class="relative z-10 flex items-center">
