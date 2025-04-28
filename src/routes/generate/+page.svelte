@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { questionStore } from '../../stores/questions';
+	import { appModeStore } from '../../stores/activemode';
+	import { flashCardStore } from '../../stores/flashcard';
 	import { goto } from '$app/navigation';
+	import { questionStore } from '../../stores/questions';
 
 	let numQuestions = 5;
 	let difficulty = 'medium';
 	let file: File | null = null;
-	
+
 	const difficultyLevels = [
 		{ value: 'easy', label: 'Easy' },
 		{ value: 'medium', label: 'Medium' },
@@ -23,21 +25,34 @@
 			return;
 		}
 
-		// Fake generation delay
 		await new Promise((resolve) => setTimeout(resolve, 1000));
 
-		const generated = Array.from({ length: numQuestions }, (_, i) => ({
-			question: `(${difficulty.toUpperCase()}) Question ${i + 1}: What is the answer to question ${i + 1}?`,
-			options: [
-				{ value: 'A', isCorrect: i % 4 === 0, description: 'Option A explanation' },
-				{ value: 'B', isCorrect: i % 4 === 1, description: 'Option B explanation' },
-				{ value: 'C', isCorrect: i % 4 === 2, description: 'Option C explanation' },
-				{ value: 'D', isCorrect: i % 4 === 3, description: 'Option D explanation' }
-			]
-		}));
+		const appMode = $appModeStore;
 
-		questionStore.set(generated);
-		await goto('/exam');
+		if (appMode === 'flash-card') {
+			const generatedFlashCards = Array.from({ length: numQuestions }, (_, i) => ({
+				front: `(${difficulty.toUpperCase()}) Flashcard ${i + 1}: What is the answer to question ${i + 1}?`,
+				back: `Answer for Flashcard ${i + 1}`
+			}));
+
+			flashCardStore.set(generatedFlashCards);
+
+			await goto('/flashcards');
+		} else {
+			const generatedQuestions = Array.from({ length: numQuestions }, (_, i) => ({
+				question: `(${difficulty.toUpperCase()}) Question ${i + 1}: What is the answer to question ${i + 1}?`,
+				options: [
+					{ value: 'A', isCorrect: i % 4 === 0, description: 'Option A explanation' },
+					{ value: 'B', isCorrect: i % 4 === 1, description: 'Option B explanation' },
+					{ value: 'C', isCorrect: i % 4 === 2, description: 'Option C explanation' },
+					{ value: 'D', isCorrect: i % 4 === 3, description: 'Option D explanation' }
+				]
+			}));
+
+			questionStore.set(generatedQuestions);
+
+			await goto('/exam');
+		}
 	}
 </script>
 

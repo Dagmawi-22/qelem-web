@@ -1,14 +1,8 @@
 import { writable } from 'svelte/store';
 
-export type Option = {
-	value: string;
-	isCorrect: boolean;
-	description: string;
+export type FlashCard = {
+	front: string;
+	back: string;
 };
 
-export type Question = {
-	question: string;
-	options: Option[];
-};
-
-export const questionStore = writable<Question[]>([]);
+export const flashCardStore = writable<FlashCard[]>([]);
