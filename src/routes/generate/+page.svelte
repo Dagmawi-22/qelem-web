@@ -5,8 +5,7 @@
 	let numQuestions = 5;
 	let difficulty = 'medium';
 	let file: File | null = null;
-	let questions: string[] = [];
-
+	
 	const difficultyLevels = [
 		{ value: 'easy', label: 'Easy' },
 		{ value: 'medium', label: 'Medium' },
@@ -42,7 +41,7 @@
 	}
 </script>
 
-<section class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12">
+<section class="flex min-h-screen items-center justify-center px-4 py-12">
 	<div class="w-full max-w-lg rounded-2xl bg-white p-8 shadow-xl">
 		<h2 class="mb-6 text-center text-3xl font-bold text-gray-800">📄 Generate Questions</h2>
 
@@ -89,19 +88,8 @@
 					py-3 font-bold text-white shadow-md transition-all duration-300 hover:scale-105 hover:from-blue-600
 					hover:to-purple-700 hover:shadow-lg focus:ring-4 focus:ring-purple-300 focus:outline-none"
 			>
-				QELEM!
+				Go &rarr;
 			</button>
 		</form>
-
-		{#if questions.length}
-			<div class="mt-8 space-y-4">
-				<h3 class="text-xl font-semibold text-gray-700">Mocked Questions:</h3>
-				<ul class="list-inside list-disc text-gray-600">
-					{#each questions as question}
-						<li>{question}</li>
-					{/each}
-				</ul>
-			</div>
-		{/if}
 	</div>
 </section>
