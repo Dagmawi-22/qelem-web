@@ -257,6 +257,7 @@
 	</div>
 </div>
 
+<!-- styles -->
 <style>
 	.feature-card {
 		padding: 1.75rem;
