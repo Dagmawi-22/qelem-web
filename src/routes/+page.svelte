@@ -3,21 +3,29 @@
 </script>
 
 <div
-	class="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 p-8"
+	class="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 p-4 sm:p-8"
 >
 	<div
-		class="border-opacity-10 w-full max-w-4xl overflow-hidden rounded-lg border border-purple-200 bg-white shadow-xl"
+		class="border-opacity-10 w-full max-w-5xl overflow-hidden rounded-xl border border-purple-200 bg-white shadow-2xl"
 	>
 		<div class="h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
 
-		<div class="p-8 md:p-10">
+		<div class="p-6 md:p-10 lg:p-12">
+			<div class="mb-2 flex justify-center">
+				<div class="rounded-full bg-indigo-100 px-4 py-1 text-sm font-semibold text-indigo-800">
+					AI-Powered Learning Tools
+				</div>
+			</div>
 			<h1
-				class="mb-8 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-center text-4xl font-extrabold text-transparent md:text-5xl"
+				class="mb-6 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-center text-4xl leading-tight font-extrabold text-transparent sm:text-5xl md:text-6xl"
 			>
-				PDF Question Generator
+				Smart Study Companion
 			</h1>
+			<p class="mb-10 text-center text-lg text-gray-600 md:text-xl">
+				Transform your documents into interactive learning materials with AI
+			</p>
 
-			<div class="mb-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+			<div class="mb-12 grid grid-cols-1 gap-6 md:grid-cols-3">
 				<div class="feature-card bg-indigo-50 hover:bg-indigo-100">
 					<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100">
 						<svg
@@ -34,9 +42,9 @@
 							></path>
 						</svg>
 					</div>
-					<h3 class="mb-2 text-lg font-semibold text-gray-800">Upload PDF</h3>
+					<h3 class="mb-2 text-lg font-semibold text-gray-800">Upload Documents</h3>
 					<p class="text-gray-600">
-						Simply upload your document and let our AI analyze the content.
+						Upload PDFs, PPTs, or text files. Our AI extracts key concepts automatically.
 					</p>
 				</div>
 
@@ -47,17 +55,20 @@
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
+							xmlns="http://www.w3.org/2000/svg"
 						>
 							<path
+								d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
 								stroke-linecap="round"
 								stroke-linejoin="round"
 								stroke-width="2"
-								d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-							></path>
+							/>
 						</svg>
 					</div>
-					<h3 class="mb-2 text-lg font-semibold text-gray-800">Customize Questions</h3>
-					<p class="text-gray-600">Choose quantity and difficulty to match your needs.</p>
+					<h3 class="mb-2 text-lg font-semibold text-gray-800">Smart Flash Cards</h3>
+					<p class="text-gray-600">
+						Generate optimized study cards with spaced repetition algorithms.
+					</p>
 				</div>
 
 				<div class="feature-card bg-blue-50 hover:bg-blue-100">
@@ -72,30 +83,136 @@
 								stroke-linecap="round"
 								stroke-linejoin="round"
 								stroke-width="2"
-								d="M13 10V3L4 14h7v7l9-11h-7z"
+								d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
 							></path>
 						</svg>
 					</div>
-					<h3 class="mb-2 text-lg font-semibold text-gray-800">Instant Generation</h3>
-					<p class="text-gray-600">Get high-quality questions in seconds with our powerful API.</p>
+					<h3 class="mb-2 text-lg font-semibold text-gray-800">Custom Assessments</h3>
+					<p class="text-gray-600">
+						Create quizzes with various question types tailored to your material.
+					</p>
 				</div>
 			</div>
 
-			<p class="mb-10 px-4 text-center text-lg leading-relaxed text-gray-700">
-				Transform your <span class="font-semibold text-indigo-600">PDF documents</span> into
-				customized assessments in just a few clicks. Our intelligent system analyzes your content
-				and generates
-				<span class="font-semibold text-purple-600">perfectly tailored questions</span> at your preferred
-				difficulty level.
-			</p>
+			<div class="mb-10 rounded-xl bg-gray-50 p-6 md:p-8">
+				<h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:text-3xl">
+					Why Choose Our Platform?
+				</h2>
+				<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+					<div class="flex items-start">
+						<div
+							class="mt-1 mr-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-100"
+						>
+							<svg
+								class="h-5 w-5 text-indigo-600"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path>
+							</svg>
+						</div>
+						<div>
+							<h3 class="mb-1 text-lg font-semibold text-gray-800">
+								Active Recall & Spaced Repetition
+							</h3>
+							<p class="text-gray-600">
+								Our flash card system uses proven learning techniques to enhance memory retention.
+							</p>
+						</div>
+					</div>
+					<div class="flex items-start">
+						<div
+							class="mt-1 mr-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-100"
+						>
+							<svg
+								class="h-5 w-5 text-purple-600"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path>
+							</svg>
+						</div>
+						<div>
+							<h3 class="mb-1 text-lg font-semibold text-gray-800">Export to Anki & Quizlet</h3>
+							<p class="text-gray-600">
+								Seamlessly export your generated flash cards to popular study platforms.
+							</p>
+						</div>
+					</div>
+					<div class="flex items-start">
+						<div
+							class="mt-1 mr-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100"
+						>
+							<svg
+								class="h-5 w-5 text-blue-600"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path>
+							</svg>
+						</div>
+						<div>
+							<h3 class="mb-1 text-lg font-semibold text-gray-800">Smart Question Generation</h3>
+							<p class="text-gray-600">
+								AI creates conceptual questions, not just simple fact recall.
+							</p>
+						</div>
+					</div>
+					<div class="flex items-start">
+						<div
+							class="mt-1 mr-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-pink-100"
+						>
+							<svg
+								class="h-5 w-5 text-pink-600"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								></path>
+							</svg>
+						</div>
+						<div>
+							<h3 class="mb-1 text-lg font-semibold text-gray-800">Progress Tracking</h3>
+							<p class="text-gray-600">
+								Monitor your learning progress with detailed analytics and insights.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			<div class="flex justify-center">
+			<div
+				class="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4"
+			>
 				<button
 					on:click={() => goto('/generate')}
-					class="group relative transform overflow-hidden rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-3 font-bold text-white shadow-md transition-all duration-300 hover:scale-105 hover:from-indigo-600 hover:to-purple-700 hover:shadow-lg"
+					class="group relative transform overflow-hidden rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-indigo-600 hover:to-purple-700 hover:shadow-xl"
 				>
 					<span class="relative z-10 flex items-center">
-						Get Started
+						Start Generating Now
 						<svg
 							class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
 							fill="none"
@@ -114,16 +231,38 @@
 						class="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-600 to-purple-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
 					></span>
 				</button>
+				<button
+					on:click={() => goto('/flashcards')}
+					class="group relative transform overflow-hidden rounded-full border border-indigo-500 bg-white px-8 py-3 font-bold text-indigo-600 shadow-md transition-all duration-300 hover:scale-105 hover:bg-indigo-50 hover:shadow-lg"
+				>
+					<span class="relative z-10 flex items-center">
+						Create Flash Cards
+						<svg
+							class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M14 5l7 7m0 0l-7 7m7-7H3"
+							></path>
+						</svg>
+					</span>
+				</button>
 			</div>
 		</div>
 	</div>
 </div>
 
+<!-- styles -->
 <style>
 	.feature-card {
-		padding: 1.5rem;
-		border-radius: 0.5rem;
-		transition: all 0.3s ease;
+		padding: 1.75rem;
+		border-radius: 0.75rem;
+		transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 		box-shadow:
 			0 4px 6px -1px rgba(0, 0, 0, 0.05),
 			0 2px 4px -1px rgba(0, 0, 0, 0.02);
@@ -131,9 +270,9 @@
 	}
 
 	.feature-card:hover {
-		transform: translateY(-0.25rem);
+		transform: translateY(-0.5rem);
 		box-shadow:
-			0 10px 15px -3px rgba(0, 0, 0, 0.1),
-			0 4px 6px -2px rgba(0, 0, 0, 0.05);
+			0 20px 25px -5px rgba(0, 0, 0, 0.1),
+			0 10px 10px -5px rgba(0, 0, 0, 0.04);
 	}
 </style>
