@@ -1,11 +1,18 @@
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
 	import FlashcardCard from './Flashcard.svelte';
+	import { goto } from '$app/navigation';
+	import { appModeStore } from '../stores/activemode';
 
 	export let flashcards: { front: string; back: string }[] = [];
 
 	let currentIndex = 0;
 	let isFlipped = false;
+
+	function handleAddFlashcard() {
+		appModeStore.set('flash-card');
+		goto('/generate');
+	}
 
 	function flipCard() {
 		isFlipped = !isFlipped;
@@ -99,5 +106,11 @@
 		</svg>
 		<h3 class="mt-4 text-lg font-medium text-gray-900">No flashcards available</h3>
 		<p class="mt-1 text-gray-500">Add some flashcards to get started</p>
+		<button
+			on:click={handleAddFlashcard}
+			class="mt-6 rounded-xl bg-indigo-600 px-6 py-3 font-semibold text-white shadow-md transition duration-300 hover:bg-indigo-700"
+		>
+			➕ Add Flashcards
+		</button>
 	</div>
 {/if}
