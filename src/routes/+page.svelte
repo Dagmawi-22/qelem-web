@@ -146,9 +146,11 @@
 							</svg>
 						</div>
 						<div>
-							<h3 class="mb-1 text-lg font-semibold text-gray-800">Export to Anki & Quizlet</h3>
+							<h3 class="mb-1 text-lg font-semibold text-gray-800">
+								Share Flashcards & Exams to Social Networks
+							</h3>
 							<p class="text-gray-600">
-								Seamlessly export your generated flash cards to popular study platforms.
+								Seamlessly share your generated flash cards & exams to peers on popular platforms.
 							</p>
 						</div>
 					</div>
@@ -196,7 +198,12 @@
 							</svg>
 						</div>
 						<div>
-							<h3 class="mb-1 text-lg font-semibold text-gray-800">Progress Tracking</h3>
+							<div class="mb-1 flex items-center gap-2">
+								<h3 class="text-lg font-semibold text-gray-800">Progress Tracking</h3>
+								<span class="rounded-full bg-yellow-100 px-2 py-0.5 text-xs text-yellow-800"
+									>Coming Soon</span
+								>
+							</div>
 							<p class="text-gray-600">
 								Monitor your learning progress with detailed analytics and insights.
 							</p>

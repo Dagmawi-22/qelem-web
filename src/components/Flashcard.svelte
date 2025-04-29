@@ -1,12 +1,14 @@
+<!-- FlashcardCard.svelte -->
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 
 	export let front: string;
 	export let back: string;
 	export let isFlipped: boolean;
+	export let id: string = '';
 </script>
 
-<div class="perspective-1000 h-full w-full">
+<div class="perspective-1000 h-full w-full" {id}>
 	<div
 		class="preserve-3d relative h-full w-full cursor-pointer transition-transform duration-600"
 		class:rotate-y-180={isFlipped}
