@@ -3,12 +3,19 @@
 	import { flashCardStore } from '../../stores/flashcard';
 	import { onMount } from 'svelte';
 	import { get } from 'svelte/store';
+	import { page } from '$app/stores';
 
-	let flashcards: { front: string; back: string }[] = [];
+	let initialFlashcards: { front: string; back: string; id?: string }[] = [];
+
+	$: deckId = $page.params.deckId || 'user-flashcards';
 
 	onMount(() => {
-		flashcards = get(flashCardStore);
+		const storeFlashcards = get(flashCardStore);
+		initialFlashcards = storeFlashcards.map((card, index) => ({
+			...card,
+			id: `user-card-${index}`
+		}));
 	});
 </script>
 
-<FlashcardDeck {flashcards} />
+<FlashcardDeck {initialFlashcards} {deckId} />

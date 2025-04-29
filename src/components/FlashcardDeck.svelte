@@ -1,19 +1,118 @@
-<!-- FlashcardDeck.svelte -->
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
 	import FlashcardCard from './Flashcard.svelte';
 	import { goto } from '$app/navigation';
 	import { appModeStore } from '../stores/activemode';
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 
-	export let flashcards: { front: string; back: string; id?: string }[] = [];
+	const mockFlashcardApi = {
+		async fetchDeck(deckId: string) {
+			console.log(`Fetching deck ${deckId} from API`);
 
-	const deckId = 'static-flashcard-deck-123';
+			const mockDecks: Record<string, any> = {
+				'static-flashcard-deck-123': {
+					id: 'static-flashcard-deck-123',
+					title: 'Sample Flashcard Deck',
+					cards: [
+						{
+							id: 'card-1',
+							front: 'What is Svelte?',
+							back: 'A JavaScript framework for building UIs'
+						},
+						{ id: 'card-2', front: 'When was Svelte created?', back: '2016' },
+						{ id: 'card-3', front: 'Who created Svelte?', back: 'Rich Harris' }
+					]
+				},
+				'sample-deck-456': {
+					id: 'sample-deck-456',
+					title: 'Programming Terms',
+					cards: [
+						{ id: 'term-1', front: 'Closure', back: 'Function with access to parent scope' },
+						{ id: 'term-2', front: 'Hoisting', back: 'Variable/function declaration moved to top' }
+					]
+				}
+			};
 
+			return new Promise((resolve) => {
+				setTimeout(() => {
+					resolve(mockDecks[deckId] || null);
+				}, 500);
+			});
+		}
+	};
+
+	export let initialFlashcards: { front: string; back: string; id?: string }[] = [];
+	export let deckId: string = 'static-flashcard-deck-123';
+
+	let flashcards: { front: string; back: string; id: string }[] = [];
 	let currentIndex = 0;
 	let isFlipped = false;
 	let showShareModal = false;
 	let copiedToClipboard = false;
+	let isLoading = false;
+	let deckTitle = 'Flashcards';
+	let error = '';
+
+	$: {
+		const params = new URLSearchParams($page.url.search);
+		const urlDeckId = $page.params.deckId || deckId;
+		const urlCardId = params.get('card') || params.get('cardId');
+
+		if (urlDeckId && urlDeckId !== deckId) {
+			deckId = urlDeckId;
+			loadDeck();
+		}
+
+		if (urlCardId && flashcards.length > 0) {
+			const cardIndex = flashcards.findIndex((card) => card.id === urlCardId);
+			if (cardIndex !== -1) {
+				currentIndex = cardIndex;
+				isFlipped = params.has('showBack');
+			} else {
+				const numCardId = parseInt(urlCardId);
+				if (!isNaN(numCardId)) {
+					currentIndex = Math.min(Math.max(0, numCardId), flashcards.length - 1);
+				}
+			}
+		}
+	}
+
+	onMount(() => {
+		if (initialFlashcards.length > 0) {
+			flashcards = initialFlashcards.map((card, idx) => ({
+				...card,
+				id: card.id || `card-${idx}`
+			}));
+		} else {
+			loadDeck();
+		}
+	});
+
+	async function loadDeck() {
+		try {
+			isLoading = true;
+			error = '';
+			const deckData: unknown = await mockFlashcardApi.fetchDeck(deckId);
+
+			if (deckData) {
+				flashcards = (deckData as any).cards.map((card: any) => ({
+					front: card.front,
+					back: card.back,
+					id: card.id
+				}));
+				deckTitle = (deckData as { title: string }).title || 'Flashcards';
+			} else {
+				error = 'Deck not found';
+				flashcards = [];
+			}
+		} catch (err) {
+			error = 'Failed to load deck';
+			console.error('Error loading deck:', err);
+		} finally {
+			isLoading = false;
+		}
+	}
 
 	function handleAddFlashcard() {
 		appModeStore.set('flash-card');
@@ -22,6 +121,7 @@
 
 	function flipCard() {
 		isFlipped = !isFlipped;
+		updateUrl();
 	}
 
 	function nextCard() {
@@ -31,6 +131,12 @@
 		} else {
 			currentIndex = 0;
 		}
+		updateUrl();
+	}
+
+	function updateUrl() {
+		const newUrl = `/flashcards/${deckId}?card=${currentCardId}${isFlipped ? '&showBack=true' : ''}`;
+		goto(newUrl, { replaceState: true, keepFocus: true });
 	}
 
 	function openShareModal() {
@@ -43,7 +149,7 @@
 	}
 
 	function copyToClipboard() {
-		const currentUrl = `${$page.url.origin}/flashcards/${deckId}?card=${currentIndex}`;
+		const currentUrl = `${$page.url.origin}/flashcards/${deckId}?card=${currentCardId}${isFlipped ? '&showBack=true' : ''}`;
 		navigator.clipboard.writeText(currentUrl);
 		copiedToClipboard = true;
 		setTimeout(() => (copiedToClipboard = false), 2000);
@@ -51,7 +157,7 @@
 
 	function shareOnTwitter() {
 		const text = `Check out this flashcard: "${currentCard.front}"`;
-		const url = `${$page.url.origin}/flashcards/${deckId}?card=${currentIndex}`;
+		const url = `${$page.url.origin}/flashcards/${deckId}?card=${currentCardId}`;
 		window.open(
 			`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
 			'_blank'
@@ -59,7 +165,7 @@
 	}
 
 	function shareOnFacebook() {
-		const url = `${$page.url.origin}/flashcards/${deckId}?card=${currentIndex}`;
+		const url = `${$page.url.origin}/flashcards/${deckId}?card=${currentCardId}`;
 		window.open(
 			`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
 			'_blank'
@@ -67,15 +173,37 @@
 	}
 
 	$: progress = flashcards.length > 0 ? ((currentIndex + 1) / flashcards.length) * 100 : 0;
-	$: currentCard = flashcards[currentIndex] || { front: '', back: '' };
+	$: currentCard = flashcards[currentIndex] || { front: '', back: '', id: '' };
 	$: currentCardId = currentCard.id || `card-${currentIndex}`;
 </script>
 
-{#if flashcards.length > 0}
+{#if error}
+	<div class="py-12 text-center text-red-500" transition:fade>
+		{error}
+	</div>
+{:else if isLoading}
+	<div class="py-12 text-center" transition:fade>
+		<svg
+			class="mx-auto h-12 w-12 animate-spin text-indigo-500"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+		>
+			<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+			></circle>
+			<path
+				class="opacity-75"
+				fill="currentColor"
+				d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+			></path>
+		</svg>
+		<p class="mt-4 text-gray-600">Loading flashcards...</p>
+	</div>
+{:else if flashcards.length > 0}
 	<section class="mx-auto max-w-2xl p-4 sm:p-6" id={deckId}>
 		<div class="mb-6">
 			<div class="mb-2 flex items-center justify-between">
-				<h2 class="text-xl font-semibold text-gray-800">Flashcards</h2>
+				<h2 class="text-xl font-semibold text-gray-800">{deckTitle}</h2>
 				<span class="text-sm font-medium text-gray-500">
 					{currentIndex + 1} / {flashcards.length}
 				</span>
@@ -177,6 +305,7 @@
 	</div>
 {/if}
 
+<!-- Share Modal -->
 {#if showShareModal}
 	<div class="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black">
 		<div class="relative w-full max-w-md rounded-xl bg-white p-6 shadow-xl" transition:fade>
@@ -206,7 +335,7 @@
 				<input
 					type="text"
 					readonly
-					value={`${$page.url.origin}/flashcards/${deckId}?card=${currentIndex}`}
+					value={`${$page.url.origin}/flashcards/${deckId}?card=${currentCardId}${isFlipped ? '&showBack=true' : ''}`}
 					class="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm"
 				/>
 				<button
