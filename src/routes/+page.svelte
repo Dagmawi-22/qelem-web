@@ -13,16 +13,18 @@
 
 		<div class="p-6 md:p-10 lg:p-12">
 			<div class="mb-2 flex justify-center">
-				<div class="rounded-full bg-indigo-100 px-4 py-1 text-sm font-semibold text-indigo-800">
+				<div
+					class="rounded-full bg-indigo-100 px-4 py-1 text-xs font-semibold text-indigo-800 md:text-sm"
+				>
 					AI-Powered Learning Tools
 				</div>
 			</div>
 			<h1
-				class="mb-6 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-center text-4xl leading-tight font-extrabold text-transparent sm:text-5xl md:text-6xl"
+				class="mb-6 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-center text-xl leading-tight font-extrabold text-transparent sm:text-5xl md:text-3xl md:text-6xl"
 			>
 				Smart Study Companion
 			</h1>
-			<p class="mb-10 text-center text-lg text-gray-600 md:text-xl">
+			<p class="mb-10 text-center text-sm text-gray-600 md:text-lg md:text-xl">
 				Transform your documents into interactive learning materials with AI
 			</p>
 
@@ -43,8 +45,8 @@
 							></path>
 						</svg>
 					</div>
-					<h3 class="mb-2 text-lg font-semibold text-gray-800">Upload Documents</h3>
-					<p class="text-gray-600">
+					<h3 class="mb-2 text-sm font-semibold text-gray-800 md:text-lg">Upload Documents</h3>
+					<p class="text-xs text-gray-600 md:text-sm">
 						Upload PDFs, PPTs, or text files. Our AI extracts key concepts automatically.
 					</p>
 				</div>
@@ -66,8 +68,8 @@
 							/>
 						</svg>
 					</div>
-					<h3 class="mb-2 text-lg font-semibold text-gray-800">Smart Flash Cards</h3>
-					<p class="text-gray-600">
+					<h3 class="mb-2 text-sm font-semibold text-gray-800 md:text-lg">Smart Flash Cards</h3>
+					<p class="text-xs text-gray-600 md:text-sm">
 						Generate optimized study cards with spaced repetition algorithms.
 					</p>
 				</div>
@@ -88,22 +90,20 @@
 							></path>
 						</svg>
 					</div>
-					<h3 class="mb-2 text-lg font-semibold text-gray-800">Custom Assessments</h3>
-					<p class="text-gray-600">
+					<h3 class="mb-2 text-sm font-semibold text-gray-800 md:text-lg">Custom Assessments</h3>
+					<p class="text-xs text-gray-600 md:text-sm">
 						Create quizzes with various question types tailored to your material.
 					</p>
 				</div>
 			</div>
 
 			<div class="mb-10 rounded-xl bg-gray-50 p-6 md:p-8">
-				<h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:text-3xl">
+				<h2 class="mb-4 text-center text-lg font-bold text-gray-800 md:text-2xl md:text-3xl">
 					Why Choose Our Platform?
 				</h2>
 				<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-					<div class="flex items-start">
-						<div
-							class="mt-1 mr-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-100"
-						>
+					<div class="flex flex-col items-start">
+						<div class="mb-4 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100">
 							<svg
 								class="h-5 w-5 text-indigo-600"
 								fill="none"
@@ -119,18 +119,16 @@
 							</svg>
 						</div>
 						<div>
-							<h3 class="mb-1 text-lg font-semibold text-gray-800">
+							<h3 class="mb-1 text-xs font-semibold text-gray-800 md:text-sm">
 								Active Recall & Spaced Repetition
 							</h3>
-							<p class="text-gray-600">
+							<p class="text-xs text-gray-600 md:text-sm">
 								Our flash card system uses proven learning techniques to enhance memory retention.
 							</p>
 						</div>
 					</div>
-					<div class="flex items-start">
-						<div
-							class="mt-1 mr-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-100"
-						>
+					<div class="flex flex-col items-start">
+						<div class="mb-4 flex h-8 w-8 items-center justify-center rounded-full bg-purple-100">
 							<svg
 								class="h-5 w-5 text-purple-600"
 								fill="none"
@@ -146,18 +144,16 @@
 							</svg>
 						</div>
 						<div>
-							<h3 class="mb-1 text-lg font-semibold text-gray-800">
+							<h3 class="mb-1 text-xs font-semibold text-gray-800 md:text-sm">
 								Share Flashcards & Exams to Social Networks
 							</h3>
-							<p class="text-gray-600">
+							<p class="text-xs text-gray-600 md:text-sm">
 								Seamlessly share your generated flash cards & exams to peers on popular platforms.
 							</p>
 						</div>
 					</div>
-					<div class="flex items-start">
-						<div
-							class="mt-1 mr-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100"
-						>
+					<div class="flex flex-col items-start">
+						<div class="mb-4 flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
 							<svg
 								class="h-5 w-5 text-blue-600"
 								fill="none"
@@ -173,16 +169,16 @@
 							</svg>
 						</div>
 						<div>
-							<h3 class="mb-1 text-lg font-semibold text-gray-800">Smart Question Generation</h3>
-							<p class="text-gray-600">
+							<h3 class="mb-1 text-xs font-semibold text-gray-800 md:text-sm">
+								Smart Question Generation
+							</h3>
+							<p class="text-xs text-gray-600 md:text-sm">
 								AI creates conceptual questions, not just simple fact recall.
 							</p>
 						</div>
 					</div>
-					<div class="flex items-start">
-						<div
-							class="mt-1 mr-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-pink-100"
-						>
+					<div class="flex flex-col items-start">
+						<div class="mb-4 flex h-8 w-8 items-center justify-center rounded-full bg-pink-100">
 							<svg
 								class="h-5 w-5 text-pink-600"
 								fill="none"
@@ -199,12 +195,13 @@
 						</div>
 						<div>
 							<div class="mb-1 flex items-center gap-2">
-								<h3 class="text-lg font-semibold text-gray-800">Progress Tracking</h3>
-								<span class="rounded-full bg-yellow-100 px-2 py-0.5 text-xs text-yellow-800"
+								<h3 class="text-sm font-semibold text-gray-800 md:text-lg">Progress Tracking</h3>
+								<span
+									class="rounded-full bg-yellow-100 px-2 py-0.5 text-xs text-nowrap text-yellow-800"
 									>Coming Soon</span
 								>
 							</div>
-							<p class="text-gray-600">
+							<p class="text-xs text-gray-600 md:text-sm">
 								Monitor your learning progress with detailed analytics and insights.
 							</p>
 						</div>
@@ -217,50 +214,25 @@
 			>
 				<button
 					on:click={() => goto('/generate')}
-					class="group relative transform overflow-hidden rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-indigo-600 hover:to-purple-700 hover:shadow-xl"
+					class="group relative flex min-w-[220px] transform items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-indigo-600 hover:to-purple-700 hover:shadow-xl"
 				>
-					<span class="relative z-10 flex items-center">
-						Start Generating Now
-						<svg
-							class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M14 5l7 7m0 0l-7 7m7-7H3"
-							></path>
-						</svg>
+					<span class="md:text-md relative z-10 flex items-center justify-center text-xs">
+						Start Generating Now &rarr;
 					</span>
 					<span
 						class="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-600 to-purple-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
 					></span>
 				</button>
+
 				<button
 					on:click={() => {
 						appModeStore.set('flash-card');
 						goto('/generate');
 					}}
-					class="group relative transform overflow-hidden rounded-full border border-indigo-500 bg-white px-8 py-3 font-bold text-indigo-600 shadow-md transition-all duration-300 hover:scale-105 hover:bg-indigo-50 hover:shadow-lg"
+					class="group relative flex min-w-[220px] transform items-center justify-center overflow-hidden rounded-full border border-indigo-500 bg-white px-8 py-3 font-bold text-indigo-600 shadow-md transition-all duration-300 hover:scale-105 hover:bg-indigo-50 hover:shadow-lg"
 				>
-					<span class="relative z-10 flex items-center">
-						Create Flash Cards
-						<svg
-							class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M14 5l7 7m0 0l-7 7m7-7H3"
-							></path>
-						</svg>
+					<span class="text md:text-md relative z-10 flex items-center justify-center text-xs">
+						Create Flash Cards &rarr;
 					</span>
 				</button>
 			</div>

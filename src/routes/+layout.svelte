@@ -28,7 +28,7 @@
 	</a>
 
 	<button
-		class="cursor-pointer bg-gray-200 p-4 text-center text-xl font-bold text-gray-600 shadow-md"
+		class="text-md cursor-pointer bg-gray-200 p-4 text-center font-bold text-gray-600 shadow-md md:text-xl"
 		on:click={() => goto('/')}
 	>
 		QELEM
@@ -38,7 +38,7 @@
 		<slot />
 	</main>
 
-	<footer class="bg-gray-100 p-4 text-center text-sm text-gray-600 shadow-inner">
+	<footer class="bg-gray-100 p-4 text-center text-xs text-gray-600 shadow-inner md:text-sm">
 		© {new Date().getFullYear()} QELEM. All rights reserved.
 	</footer>
 </div>

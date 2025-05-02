@@ -18,7 +18,7 @@
 	});
 
 	function startTimer() {
-		timer = questions.length * 60; 
+		timer = questions.length * 60;
 		countdown = setInterval(() => {
 			timer--;
 			if (timer <= 0) {
@@ -32,7 +32,7 @@
 		selectedOption = value;
 		questions[currentIndex].selected = value;
 
-		const correct = questions[currentIndex].options.find(opt => opt.value === value)?.isCorrect;
+		const correct = questions[currentIndex].options.find((opt) => opt.value === value)?.isCorrect;
 		if (correct) score++;
 
 		showNext = true;
@@ -59,16 +59,20 @@
 		showNext = false;
 		score = 0;
 		isFinished = false;
-		questions.forEach(q => delete q.selected);
+		questions.forEach((q) => delete q.selected);
 		startTimer();
 	}
 </script>
 
 {#if !isFinished}
-	<section class="max-w-3xl mx-auto p-6">
-		<div class="flex justify-between mb-4">
-			<p class="text-lg font-medium text-blue-600">⏱️ Time Left: {Math.floor(timer / 60)}:{String(timer % 60).padStart(2, '0')}</p>
-			<p class="text-gray-600">Question {currentIndex + 1} / {questions.length}</p>
+	<section class="mx-auto max-w-3xl p-6">
+		<div class="mb-4 flex justify-between">
+			<p class="text-lg font-medium text-blue-600">
+				⏱️ Time Left: {Math.floor(timer / 60)}:{String(timer % 60).padStart(2, '0')}
+			</p>
+			<p class="text-xs text-gray-600 md:text-sm">
+				Question {currentIndex + 1} / {questions.length}
+			</p>
 		</div>
 
 		<div class="mb-4">
@@ -76,11 +80,13 @@
 			<ul class="mt-4 space-y-2">
 				{#each questions[currentIndex]?.options as option}
 					<li
-						class={`cursor-pointer rounded-md border p-3 ${selectedOption === option.value
-							? option.isCorrect
-								? 'bg-green-100 border-green-400'
-								: 'bg-red-100 border-red-400'
-							: 'hover:bg-gray-50'}`}
+						class={`cursor-pointer rounded-md border p-3 ${
+							selectedOption === option.value
+								? option.isCorrect
+									? 'border-green-400 bg-green-100'
+									: 'border-red-400 bg-red-100'
+								: 'hover:bg-gray-50'
+						}`}
 						on:click={() => !showNext && selectOption(option.value)}
 					>
 						<strong>{option.value}</strong>: {option.description}
@@ -99,14 +105,14 @@
 		{/if}
 	</section>
 {:else}
-	<section class="max-w-4xl mx-auto p-6 space-y-8">
+	<section class="mx-auto max-w-4xl space-y-8 p-6">
 		<div class="text-center">
 			<h2 class="text-3xl font-bold text-green-600">🎉 Exam Completed!</h2>
-			<p class="text-xl mt-2">✅ Correct: {score} / {questions.length}</p>
+			<p class="mt-2 text-xl">✅ Correct: {score} / {questions.length}</p>
 			<p class="text-lg text-gray-700">❌ Incorrect: {questions.length - score}</p>
 			<button
 				on:click={restartExam}
-				class="mt-4 rounded bg-blue-600 px-4 py-2 text-white font-semibold hover:bg-blue-700"
+				class="mt-4 rounded bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700"
 			>
 				Restart Exam
 			</button>
@@ -120,18 +126,14 @@
 					<ul class="ml-4 space-y-1">
 						{#each q.options as option}
 							<li
-								class={
-									option.value === q.selected
-										? option.isCorrect
-											? 'text-green-600 font-medium'
-											: 'text-red-500 font-medium'
-										: 'text-gray-700'
-								}
+								class={option.value === q.selected
+									? option.isCorrect
+										? 'font-medium text-green-600'
+										: 'font-medium text-red-500'
+									: 'text-gray-700'}
 							>
 								<strong>{option.value}</strong>: {option.description}
-								{option.value === q.selected
-									? option.isCorrect ? ' ✅' : ' ❌'
-									: ''}
+								{option.value === q.selected ? (option.isCorrect ? ' ✅' : ' ❌') : ''}
 							</li>
 						{/each}
 					</ul>
