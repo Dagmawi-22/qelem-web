@@ -3,9 +3,10 @@
 	import { flashCardStore } from '../../stores/flashcard';
 	import { goto } from '$app/navigation';
 	import { questionStore } from '../../stores/questions';
+	import { toast, Toaster } from 'svelte-sonner';
 
 	let numQuestions = 5;
-	let difficulty = 'medium';
+	let difficulty: 'easy' | 'medium' | 'hard' = 'medium';
 	let file: File | null = null;
 
 	const difficultyLevels = [
@@ -21,9 +22,17 @@
 
 	async function handleSubmit() {
 		if (!file) {
-			alert('Please upload a PDF file.');
+			toast('Please upload a PDF file.', {
+				position: 'top-center',
+				duration: 3000,
+				style: 'background: #FEE2E2; color: #B91C1C; border: none;'
+			});
 			return;
 		}
+
+		const loadingToast = toast.loading('Generating content...', {
+			position: 'top-center'
+		});
 
 		await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -36,7 +45,12 @@
 			}));
 
 			flashCardStore.set(generatedFlashCards);
-
+			toast.success(`Generated ${numQuestions} flashcards!`, {
+				id: loadingToast,
+				position: 'top-center',
+				duration: 2000,
+				style: 'background: #DCFCE7; color: #166534; border: none;'
+			});
 			await goto('/flashcards');
 		} else {
 			const generatedQuestions = Array.from({ length: numQuestions }, (_, i) => ({
@@ -50,61 +64,123 @@
 			}));
 
 			questionStore.set(generatedQuestions);
-
+			toast.success(`Generated ${numQuestions} questions!`, {
+				id: loadingToast,
+				position: 'top-center',
+				duration: 2000,
+				style: 'background: #DCFCE7; color: #166534; border: none;'
+			});
 			await goto('/exam');
 		}
 	}
 </script>
 
-<section class="flex min-h-screen items-center justify-center px-4 py-12">
-	<div class="w-full max-w-lg rounded-2xl bg-white p-8 shadow-xl">
-		<h2 class="mb-6 text-center text-3xl font-bold text-gray-800">📄 Generate Questions</h2>
+<svelte:head>
+	<link rel="stylesheet" href="https://unpkg.com/sonner/dist/sonner.min.css" />
+</svelte:head>
 
-		<form on:submit|preventDefault={handleSubmit} class="space-y-6">
-			<div>
-				<p class="mb-1 block text-sm font-semibold text-gray-700">Upload PDF (Upto 1MB)</p>
-				<input
-					type="file"
-					accept=".pdf"
-					on:change={handleFileChange}
-					class="w-full rounded-lg border p-2 text-gray-600 file:mr-4 file:rounded-lg file:border-0
-						file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
-				/>
+<section class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-12 sm:px-6 lg:px-8">
+	<div class="mx-auto max-w-md space-y-8">
+		<div class="text-center">
+			<h1 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+				<span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+					Generate Study Content
+				</span>
+			</h1>
+			<p class="mt-2 text-sm text-gray-600">
+				Upload your PDF and we'll create flashcards or questions for you
+			</p>
+		</div>
+
+		<div class="overflow-hidden rounded-xl bg-white shadow-xl">
+			<div class="px-8 py-8 sm:px-10 sm:py-10">
+				<form on:submit|preventDefault={handleSubmit} class="space-y-6">
+					<div class="space-y-2">
+						<p class="block text-sm font-medium text-gray-700">Upload PDF (Up to 1MB)</p>
+						<div class="flex items-center justify-center">
+							<label
+								class="flex w-full cursor-pointer flex-col items-center rounded-lg border-2 border-dashed border-gray-300 bg-white px-4 py-6 transition hover:border-gray-400 hover:bg-gray-50"
+							>
+								{#if file}
+									<svg
+										class="mb-3 h-10 w-10 text-blue-500"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+										></path>
+									</svg>
+									<span class="max-w-xs truncate text-sm font-medium text-gray-900">
+										{file.name}
+									</span>
+									<span class="mt-1 text-xs text-gray-500"> Click to change file </span>
+								{:else}
+									<svg
+										class="mb-3 h-10 w-10 text-gray-400"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+										></path>
+									</svg>
+									<span class="text-sm text-gray-600"> Click to browse or drag and drop </span>
+								{/if}
+								<input type="file" accept=".pdf" on:change={handleFileChange} class="hidden" />
+							</label>
+						</div>
+					</div>
+
+					<div class="space-y-2">
+						<label for="numQuestions" class="block text-sm font-medium text-gray-700">
+							Number of Questions (5-20)
+						</label>
+						<input
+							id="numQuestions"
+							type="number"
+							min="5"
+							max="20"
+							bind:value={numQuestions}
+							class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+						/>
+					</div>
+
+					<div class="space-y-2">
+						<label for="difficulty" class="block text-sm font-medium text-gray-700">
+							Difficulty Level
+						</label>
+						<select
+							id="difficulty"
+							bind:value={difficulty}
+							class="block w-full rounded-md border-gray-300 py-2 pr-10 pl-3 text-xs focus:border-blue-500 focus:ring-blue-500 focus:outline-none sm:text-sm md:text-sm"
+						>
+							{#each difficultyLevels as level}
+								<option value={level.value} class="">{level.label}</option>
+							{/each}
+						</select>
+					</div>
+
+					<div class="pt-2">
+						<button
+							type="submit"
+							class="group relative flex w-full justify-center rounded-md border border-transparent bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-3 text-sm font-medium text-white shadow-sm hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+						>
+							Generate Content
+						</button>
+					</div>
+				</form>
 			</div>
-
-			<div>
-				<p class="mb-1 block text-sm font-semibold text-gray-700">
-					Number of Questions (Between 5 & 20)
-				</p>
-				<input
-					type="number"
-					min="5"
-					max="20"
-					bind:value={numQuestions}
-					class="w-full rounded-lg border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-				/>
-			</div>
-
-			<div>
-				<p class="mb-1 block text-sm font-semibold text-gray-700">Difficulty</p>
-				<select
-					bind:value={difficulty}
-					class="w-full rounded-lg border border-gray-300 bg-white p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-				>
-					{#each difficultyLevels as level}
-						<option value={level.value}>{level.label}</option>
-					{/each}
-				</select>
-			</div>
-
-			<button
-				type="submit"
-				class="w-full transform cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-600
-					py-3 font-bold text-white shadow-md transition-all duration-300 hover:scale-105 hover:from-blue-600
-					hover:to-purple-700 hover:shadow-lg focus:ring-4 focus:ring-purple-300 focus:outline-none"
-			>
-				Go &rarr;
-			</button>
-		</form>
+		</div>
 	</div>
 </section>
+
+<Toaster />
