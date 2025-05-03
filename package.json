@@ -43,6 +43,8 @@
 		"vitest": "^3.0.0"
 	},
 	"dependencies": {
+		"lucide-svelte": "^0.507.0",
+		"svelte-icons": "^2.1.0",
 		"svelte-sonner": "^0.3.28"
 	}
 }
