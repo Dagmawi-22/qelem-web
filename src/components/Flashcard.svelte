@@ -1,4 +1,3 @@
-<!-- FlashcardCard.svelte -->
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 
