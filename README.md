@@ -8,7 +8,7 @@ A SvelteKit app that converts static PDFs into:
 - Anki-compatible flashcard decks 🗂️
 - Structured study guides 📚
 
-**Backend Companion**: [pdf-learning-ui](https://github.com/Dagmawi-22/qelem-web-api) (NestJs + PgSql)
+**Backend Companion**: [qelem-api](https://github.com/Dagmawi-22/qelem-web-api) (NestJs + PgSql)
 
 ## Table of Contents
 - [Features](#-features)
