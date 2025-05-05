@@ -40,23 +40,37 @@ class PublicApi {
 		}
 	}
 
-	public async get<T>(
-		endpoint: string,
-		params: Record<string, string | number | boolean> = {}
-	): Promise<T> {
-		const query = new URLSearchParams();
+	public async uploadPdfAndGenerateContent(
+		file: File,
+		count: number,
+		difficulty: 'easy' | 'medium' | 'hard',
+		mode: 'exam' | 'flashcard'
+	) {
+		const formData = new FormData();
+		formData.append('file', file);
+		formData.append('count', count.toString());
+		formData.append('difficulty', difficulty);
+		formData.append('type', mode);
 
-		Object.entries(params).forEach(([key, value]) => {
-			query.append(key, String(value));
-		});
+		const url = `${this.baseURL}/content/generate-from-pdf`;
 
-		const queryString = query.toString();
-		return this.fetch<T>(`${endpoint}${queryString ? `?${queryString}` : ''}`, {
-			method: 'GET'
-		});
+		try {
+			const response = await fetch(url, {
+				method: 'POST',
+				body: formData
+			});
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			return await response.json();
+		} catch (error) {
+			console.error('Upload failed:', error);
+			throw error;
+		}
 	}
 }
 
-const api = new PublicApi(import.meta.env.VITE_API_BASE_URL || 'https://api.example.com');
-
+const api = new PublicApi(import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000');
 export default api;

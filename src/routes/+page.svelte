@@ -226,7 +226,7 @@
 
 				<button
 					on:click={() => {
-						appModeStore.set('flash-card');
+						appModeStore.set('flashcard');
 						goto('/generate');
 					}}
 					class="group relative flex min-w-[220px] transform items-center justify-center overflow-hidden rounded-full border border-indigo-500 bg-white px-8 py-3 font-bold text-indigo-600 shadow-md transition-all duration-300 hover:scale-105 hover:bg-indigo-50 hover:shadow-lg"

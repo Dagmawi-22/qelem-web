@@ -4,10 +4,12 @@
 	import { goto } from '$app/navigation';
 	import { questionStore } from '../../stores/questions';
 	import { toast, Toaster } from 'svelte-sonner';
+	import api from '$lib/api';
 
 	let numQuestions = 5;
 	let difficulty: 'easy' | 'medium' | 'hard' = 'medium';
 	let file: File | null = null;
+	let isGenerating = false;
 
 	const difficultyLevels = [
 		{ value: 'easy', label: 'Easy' },
@@ -30,47 +32,65 @@
 			return;
 		}
 
+		if (file.size > 1024 * 1024) {
+			// 1MB limit
+			toast('File size exceeds 1MB limit.', {
+				position: 'top-center',
+				duration: 3000,
+				style: 'background: #FEE2E2; color: #B91C1C; border: none;'
+			});
+			return;
+		}
+
+		isGenerating = true;
 		const loadingToast = toast.loading('Generating content...', {
 			position: 'top-center'
 		});
 
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		try {
+			const appMode = $appModeStore;
+			const mode = appMode === 'flashcard' ? 'flashcard' : 'exam';
 
-		const appMode = $appModeStore;
+			const response = await api.uploadPdfAndGenerateContent(file, numQuestions, difficulty, mode);
 
-		if (appMode === 'flash-card') {
-			const generatedFlashCards = Array.from({ length: numQuestions }, (_, i) => ({
-				front: `(${difficulty.toUpperCase()}) Flashcard ${i + 1}: What is the answer to question ${i + 1}?`,
-				back: `Answer for Flashcard ${i + 1}`
-			}));
+			if (appMode === 'flashcard') {
+				flashCardStore.set(response.flashcards);
+				toast.success(`Generated ${numQuestions} flashcards!`, {
+					id: loadingToast,
+					position: 'top-center',
+					duration: 2000,
+					style: 'background: #DCFCE7; color: #166534; border: none;'
+				});
+				await goto('/flashcards');
+			} else {
+				const questions = response.questions.map((q: any) => ({
+					question: q.question,
+					options: q.options.map((opt: any) => ({
+						value: opt.value,
+						isCorrect: opt.correct,
+						description: opt.text
+					}))
+				}));
 
-			flashCardStore.set(generatedFlashCards);
-			toast.success(`Generated ${numQuestions} flashcards!`, {
+				questionStore.set(questions);
+				toast.success(`Generated ${numQuestions} questions!`, {
+					id: loadingToast,
+					position: 'top-center',
+					duration: 2000,
+					style: 'background: #DCFCE7; color: #166534; border: none;'
+				});
+				await goto('/exam');
+			}
+		} catch (error) {
+			console.error('Generation failed:', error);
+			toast.error('Failed to generate content. Please try again.', {
 				id: loadingToast,
 				position: 'top-center',
-				duration: 2000,
-				style: 'background: #DCFCE7; color: #166534; border: none;'
+				duration: 3000,
+				style: 'background: #FEE2E2; color: #B91C1C; border: none;'
 			});
-			await goto('/flashcards');
-		} else {
-			const generatedQuestions = Array.from({ length: numQuestions }, (_, i) => ({
-				question: `(${difficulty.toUpperCase()}) Question ${i + 1}: What is the answer to question ${i + 1}?`,
-				options: [
-					{ value: 'A', isCorrect: i % 4 === 0, description: 'Option A explanation' },
-					{ value: 'B', isCorrect: i % 4 === 1, description: 'Option B explanation' },
-					{ value: 'C', isCorrect: i % 4 === 2, description: 'Option C explanation' },
-					{ value: 'D', isCorrect: i % 4 === 3, description: 'Option D explanation' }
-				]
-			}));
-
-			questionStore.set(generatedQuestions);
-			toast.success(`Generated ${numQuestions} questions!`, {
-				id: loadingToast,
-				position: 'top-center',
-				duration: 2000,
-				style: 'background: #DCFCE7; color: #166534; border: none;'
-			});
-			await goto('/exam');
+		} finally {
+			isGenerating = false;
 		}
 	}
 </script>
