@@ -68,7 +68,7 @@
 	{#if flashcards.length > 0}
 		<div class="mb-6">
 			<div class="mb-2 flex items-center justify-between">
-				<h2 class="text-xl font-semibold text-gray-800">{deckTitle}</h2>
+				<h2 class="font-semibold text-gray-800">{deckTitle}</h2>
 				<span class="text-sm font-medium text-gray-500">
 					{currentIndex + 1} / {flashcards.length}
 				</span>

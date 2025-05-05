@@ -15,14 +15,14 @@
 		<div
 			class="absolute inset-0 flex rotate-y-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 p-8 shadow-lg backface-hidden"
 		>
-			<p class="text-center text-2xl font-bold text-white" transition:fade>
+			<p class="text-center md:text-sm text-xs text-white" transition:fade>
 				{!isFlipped ? front : ''}
 			</p>
 		</div>
 		<div
 			class="absolute inset-0 flex rotate-y-180 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 p-8 shadow-lg backface-hidden"
 		>
-			<p class="text-center text-2xl font-bold text-white" transition:fade>
+			<p class="text-center md:text-sm text-xs italic text-white" transition:fade>
 				{isFlipped ? back : ''}
 			</p>
 		</div>
