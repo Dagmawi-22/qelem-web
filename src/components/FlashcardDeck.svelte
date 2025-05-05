@@ -24,7 +24,7 @@
 	});
 
 	function handleAddFlashcard() {
-		appModeStore.set('flash-card');
+		appModeStore.set('flashcard');
 		goto('/generate');
 	}
 
