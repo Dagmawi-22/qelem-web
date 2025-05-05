@@ -14,7 +14,7 @@
 	const difficultyLevels = [
 		{ value: 'easy', label: 'Easy' },
 		{ value: 'medium', label: 'Medium' },
-		{ value: 'hard', label: 'Tricky' }
+		{ value: 'hard', label: 'Hard' }
 	];
 
 	function handleFileChange(event: Event) {
