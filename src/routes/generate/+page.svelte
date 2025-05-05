@@ -33,7 +33,6 @@
 		}
 
 		if (file.size > 1024 * 1024) {
-			// 1MB limit
 			toast('File size exceeds 1MB limit.', {
 				position: 'top-center',
 				duration: 3000,
@@ -44,7 +43,8 @@
 
 		isGenerating = true;
 		const loadingToast = toast.loading('Generating content...', {
-			position: 'top-center'
+			position: 'top-center',
+			duration: 9000
 		});
 
 		try {
@@ -54,7 +54,8 @@
 			const response = await api.uploadPdfAndGenerateContent(file, numQuestions, difficulty, mode);
 
 			if (appMode === 'flashcard') {
-				flashCardStore.set(response.flashcards);
+				// If your flashcards API returns an array directly:
+				flashCardStore.set(response);
 				toast.success(`Generated ${numQuestions} flashcards!`, {
 					id: loadingToast,
 					position: 'top-center',
@@ -63,16 +64,9 @@
 				});
 				await goto('/flashcards');
 			} else {
-				const questions = response.questions.map((q: any) => ({
-					question: q.question,
-					options: q.options.map((opt: any) => ({
-						value: opt.value,
-						isCorrect: opt.correct,
-						description: opt.text
-					}))
-				}));
-
-				questionStore.set(questions);
+				// For exam questions, the response is already in the correct format
+				// No need to map since the API returns exactly what we need
+				questionStore.set(response);
 				toast.success(`Generated ${numQuestions} questions!`, {
 					id: loadingToast,
 					position: 'top-center',
