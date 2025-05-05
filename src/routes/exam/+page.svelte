@@ -32,7 +32,9 @@
 		selectedOption = value;
 		questions[currentIndex].selected = value;
 
-		const correct = questions[currentIndex].options.find((opt) => opt.value === value)?.isCorrect;
+		const correct = questions[currentIndex].options.find(
+			(opt: { correct: boolean; value: string }) => opt.value === value
+		)?.correct;
 		if (correct) score++;
 
 		showNext = true;
@@ -94,7 +96,7 @@
 					<li
 						class={`rounded-lg border p-4 transition-all ${
 							selectedOption === option.value
-								? option.isCorrect
+								? option.correct
 									? 'border-green-300 bg-green-50 shadow-green-100'
 									: 'border-red-300 bg-red-50 shadow-red-100'
 								: 'border-gray-200 hover:border-blue-200 hover:bg-blue-50'
@@ -105,7 +107,7 @@
 							<span
 								class={`mt-0.5 mr-3 flex h-6 w-6 items-center justify-center rounded-full ${
 									selectedOption === option.value
-										? option.isCorrect
+										? option.correct
 											? 'bg-green-100 text-green-600'
 											: 'bg-red-100 text-red-600'
 										: 'bg-gray-100 text-gray-600'
@@ -113,7 +115,7 @@
 							>
 								{option.value}
 							</span>
-							<span class="flex-1">{option.description}</span>
+							<span class="flex-1">{option.text}</span>
 						</div>
 					</li>
 				{/each}
@@ -172,20 +174,20 @@
 							<li
 								class={`rounded-lg border p-3 ${
 									option.value === q.selected
-										? option.isCorrect
+										? option.correct
 											? 'border-green-200 bg-green-50'
 											: 'border-red-200 bg-red-50'
 										: 'border-gray-100'
-								} ${option.isCorrect && !(option.value === q.selected) ? 'bg-blue-50' : ''}`}
+								} ${option.correct && !(option.value === q.selected) ? 'bg-blue-50' : ''}`}
 							>
 								<div class="flex items-start">
 									<span
 										class={`mt-0.5 mr-3 flex h-6 w-6 items-center justify-center rounded-full ${
 											option.value === q.selected
-												? option.isCorrect
+												? option.correct
 													? 'bg-green-100 text-green-600'
 													: 'bg-red-100 text-red-600'
-												: option.isCorrect
+												: option.correct
 													? 'bg-blue-100 text-blue-600'
 													: 'bg-gray-100 text-gray-600'
 										}`}
@@ -195,18 +197,18 @@
 									<span
 										class={`flex-1 ${
 											option.value === q.selected
-												? option.isCorrect
+												? option.correct
 													? 'font-medium text-green-600'
 													: 'font-medium text-red-600'
-												: option.isCorrect
+												: option.correct
 													? 'font-medium text-blue-600'
 													: 'text-gray-700'
 										}`}
 									>
-										{option.description}
+										{option.text}
 										{#if option.value === q.selected}
 											<span class="ml-2">
-												{#if option.isCorrect}✅{:else}❌{/if}
+												{#if option.correct}✅{:else}❌{/if}
 											</span>
 										{/if}
 									</span>

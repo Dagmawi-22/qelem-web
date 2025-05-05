@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 export type Option = {
 	value: string;
 	isCorrect: boolean;
-	description: string;
+	text: string;
 };
 
 export type Question = {
