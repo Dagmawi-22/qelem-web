@@ -65,7 +65,7 @@ The extracted content is sent to the Gemini API to generate either:
  ### Clone the repository
 ```bash
      git clone https://github.com/Dagmawi-22/qelem-web.git ```
-     cd qelem-web-api
+     cd qelem-web
 ```
  ### Create a .env file if it doesn't exist based on .env.example:
 ```bash
