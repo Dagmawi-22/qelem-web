@@ -77,12 +77,16 @@
 			}
 		} catch (error) {
 			console.error('Generation failed:', error);
-			toast.error('Failed to generate content. Please try again.', {
-				id: loadingToast,
-				position: 'top-center',
-				duration: 3000,
-				style: 'background: #FEE2E2; color: #B91C1C; border: none;'
-			});
+
+			toast.error(
+				'Gemini API is currently unavailable. Please check back shortly as we renew our subscription.',
+				{
+					id: loadingToast,
+					position: 'top-center',
+					duration: 3000,
+					style: 'background: #FEE2E2; color: #B91C1C; border: none;'
+				}
+			);
 		} finally {
 			isGenerating = false;
 		}
